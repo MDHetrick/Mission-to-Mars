@@ -103,7 +103,7 @@ from bs4 import BeautifulSoup as bs
 import pandas as pd
 from webdriver_manager.chrome import ChromeDriverManager
 # Set the executable path and initialize Splinter
-executable_path = {'executable_path': ChromeDriverManager(version = '98.0.4758.102').install()}
+executable_path = {'executable_path': ChromeDriverManager().install()}
 browser = Browser('chrome', **executable_path, headless=False)
 # 1. Use browser to visit the URL 
 # url = 'https://marshemispheres.com/'
