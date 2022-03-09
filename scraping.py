@@ -121,8 +121,9 @@ def hemispheres(browser):
     for i in url_list:
         hemispheres = {}
         browser.visit(i)
-        title = browser.find_by_css("h2.title").text
-        hemispheres['title'] = title
+        title = browser.find_by_tag('h2').first
+        hemispheres['title'] = title.text
+        print(hemispheres)
         link = browser.links.find_by_text('Sample').first ## THIS ONE WORKS
         img_url = link['href']
         hemispheres['link'] = img_url

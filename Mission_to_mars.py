@@ -177,8 +177,7 @@ for url in soup.find_all('div', class_='description'):
 for i in url_list:
     hemispheres = {}
     browser.visit(i)
-    title01 = soup.find('div', class_='description')
-    title = title01.find('h3')
+
     hemispheres['title'] = title.text
     link = browser.links.find_by_text('Sample').first ## THIS ONE WORKS
     img_url = link['href']
