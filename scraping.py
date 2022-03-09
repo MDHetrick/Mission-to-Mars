@@ -24,11 +24,12 @@ def scrape_all():
         # 2
         # create a new dict in data dict to hold list of dict w/ url string and title of each hemisphere image
         #################################
-        "hemisphere": hemispheres(browser)
+        "hemispheres": hemispheres(browser)
     }
 
     # Stop webdriver and return data
     browser.quit()
+    print(f'DATA------------------------------{data}')
     return data
 
 
@@ -36,7 +37,7 @@ def mars_news(browser):
 
     # Scrape Mars News
     # Visit the mars nasa news site
-    url = 'https://data-class-mars.s3.amazonaws.com/Mars/index.html'
+    url = 'https://redplanetscience.com/'
     browser.visit(url)
 
     # Optional delay for loading the page
@@ -106,25 +107,47 @@ def mars_facts():
 
 def hemispheres(browser):
     url = 'https://astrogeology.usgs.gov/search/results?q=hemisphere+enhanced&k1=target&v1=Mars'
-    executable_path = {'executable_path': ChromeDriverManager(version = '98.0.4758.102').install()}
-    browser = Browser('chrome', **executable_path, headless=True)
     browser.visit(url)
     hemisphere_image_urls = []
     html = browser.html
-    hemi_soup = soup(html, 'html.parser')
-    title_list = hemi_soup.find_all('h3')
-
-    for i in title_list[:4]:
-
+    hsoup = soup(html, 'html.parser')
+    # articles = hsoup.find_all('div', class_='item')
+    url_list = []
+    for url in hsoup.find_all('div', class_='description'):
+        link = url.a['href']
+        new_link = f'https://astrogeology.usgs.gov{link}'
+        url_list.append(new_link)
+    print(url_list)  
+    for i in url_list:
         hemispheres = {}
-        title = i.text.strip()
+        browser.visit(i)
+        title = browser.find_by_css("h2.title").text
         hemispheres['title'] = title
-        browser.links.find_by_partial_text(title).click()
         link = browser.links.find_by_text('Sample').first ## THIS ONE WORKS
         img_url = link['href']
         hemispheres['link'] = img_url
         hemisphere_image_urls.append(hemispheres)
-        browser.back()
+    # url = 'https://astrogeology.usgs.gov/search/results?q=hemisphere+enhanced&k1=target&v1=Mars'
+    # executable_path = {'executable_path': ChromeDriverManager(version = '98.0.4758.102').install()}
+    # browser = Browser('chrome', **executable_path, headless=True)
+    # browser.visit(url)
+    # hemisphere_image_urls = []
+    # html = browser.html
+    # hemi_soup = soup(html, 'html.parser')
+    # title_list = hemi_soup.find_all('h3')
+
+    # for i in title_list[:4]:
+
+    #     hemispheres = {}
+    #     title = i.text.strip()
+    #     hemispheres['title'] = title
+    #     browser.links.find_by_partial_text(title).click()
+    #     link = browser.links.find_by_text('Sample').first ## THIS ONE WORKS
+    #     img_url = link['href']
+    #     hemispheres['link'] = img_url
+    #     hemisphere_image_urls.append(hemispheres)
+    #     browser.back()
+    #     print(hemisphere_image_urls)
     browser.quit()
     return(hemisphere_image_urls)    
 #################################
