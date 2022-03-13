@@ -2,17 +2,16 @@
 The purpose of this repository is to create a web app that will scrape several websites for information about Mars and present that information.
 
 ### Resources
-Several websites were utilized for obtaining Mars data:
+Several websites utilized for obtaining Mars data:
 - https://redplanetscience.com/
 - https://spaceimages-mars.com/
 - https://galaxyfacts-mars.com/
 - https://astrogeology.usgs.gov/
 
-Files:
+Code files:
 - Web app file: [app.py](https://github.com/MDHetrick/Mission-to-Mars/blob/main/app.py)
 - Scraping file: [scraping.py](https://github.com/MDHetrick/Mission-to-Mars/blob/main/scraping.py)
 - HTML index file: [index_v3.html](https://github.com/MDHetrick/Mission-to-Mars/blob/main/templates/index_v3.html)
-
 
 ### HTML File Edits
 Once the information in the web app was populated, the styling was modified. The final styled page is shown below.
