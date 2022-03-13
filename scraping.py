@@ -5,7 +5,6 @@ import pandas as pd
 import datetime as dt
 from webdriver_manager.chrome import ChromeDriverManager
 
-
 def scrape_all():
     # Initiate headless driver for deployment
     executable_path = {'executable_path': ChromeDriverManager().install()}
@@ -20,23 +19,14 @@ def scrape_all():
         "featured_image": featured_image(browser),
         "facts": mars_facts(),
         "last_modified": dt.datetime.now(),
-        #################################
-        # 2
-        # create a new dict in data dict to hold list of dict w/ url string and title of each hemisphere image
-        #################################
-        "hemispheres": hemispheres(browser)
+        "hemispheres": hemispheres(browser) # create a new dictionary in data to hold list of dictionaries
     }
-
     # Stop webdriver and return data
     browser.quit()
-    print(f'DATA------------------------------{data}')
     return data
 
 
 def mars_news(browser):
-
-    # Scrape Mars News
-    # Visit the mars nasa news site
     url = 'https://redplanetscience.com/'
     browser.visit(url)
 
@@ -58,7 +48,6 @@ def mars_news(browser):
     except AttributeError as error:
         print("---ERROR:{error}---")
         return None, None
-
     return news_title, news_p
 
 
@@ -86,7 +75,6 @@ def featured_image(browser):
 
     # Use the base url to create an absolute url
     img_url = f'https://data-class-jpl-space.s3.amazonaws.com/JPL_Space/{img_url_rel}'
-
     return img_url
 
 def mars_facts():
@@ -98,6 +86,7 @@ def mars_facts():
     except BaseException as error:
         print("---ERROR:{error}---")
         return None, None
+    
     # Assign columns and set index of dataframe
     df.columns=['Description', 'Mars', 'Earth']
     df.set_index('Description', inplace=True)
@@ -105,58 +94,33 @@ def mars_facts():
     # Convert dataframe into HTML format, add bootstrap
     return df.to_html(classes="table table-striped")
 
+# Create a function that will scrape the hemisphere data
 def hemispheres(browser):
     url = 'https://astrogeology.usgs.gov/search/results?q=hemisphere+enhanced&k1=target&v1=Mars'
     browser.visit(url)
     hemisphere_image_urls = []
     html = browser.html
     hsoup = soup(html, 'html.parser')
-    # articles = hsoup.find_all('div', class_='item')
+
     url_list = []
     for url in hsoup.find_all('div', class_='description'):
         link = url.a['href']
         new_link = f'https://astrogeology.usgs.gov{link}'
         url_list.append(new_link)
-    print(url_list)  
+
     for i in url_list:
         hemispheres = {}
         browser.visit(i)
         title = browser.find_by_tag('h2').first
         hemispheres['title'] = title.text
-        print(hemispheres)
-        link = browser.links.find_by_text('Sample').first ## THIS ONE WORKS
+        link = browser.links.find_by_text('Sample').first
         img_url = link['href']
         hemispheres['link'] = img_url
         hemisphere_image_urls.append(hemispheres)
-    # url = 'https://astrogeology.usgs.gov/search/results?q=hemisphere+enhanced&k1=target&v1=Mars'
-    # executable_path = {'executable_path': ChromeDriverManager(version = '98.0.4758.102').install()}
-    # browser = Browser('chrome', **executable_path, headless=True)
-    # browser.visit(url)
-    # hemisphere_image_urls = []
-    # html = browser.html
-    # hemi_soup = soup(html, 'html.parser')
-    # title_list = hemi_soup.find_all('h3')
-
-    # for i in title_list[:4]:
-
-    #     hemispheres = {}
-    #     title = i.text.strip()
-    #     hemispheres['title'] = title
-    #     browser.links.find_by_partial_text(title).click()
-    #     link = browser.links.find_by_text('Sample').first ## THIS ONE WORKS
-    #     img_url = link['href']
-    #     hemispheres['link'] = img_url
-    #     hemisphere_image_urls.append(hemispheres)
-    #     browser.back()
-    #     print(hemisphere_image_urls)
     browser.quit()
-    return(hemisphere_image_urls)    
-#################################
-# # 3
-# Below the def mars_facts() function in the scraping.pyfile, create a function that will scrape the hemisphere data by using your code from the Mission_to_Mars_Challenge.py file. 
-# At the end of the function, return the scraped data as a list of dictionaries with the URL string and title of each hemisphere image.
-#################################
-if __name__ == "__main__":
 
-    # If running as script, print scraped data
+    # return the scraped data as a list of dictionaries
+    return(hemisphere_image_urls)    
+
+if __name__ == "__main__":
     print(scrape_all())

@@ -132,7 +132,6 @@ df.to_html()
 
 # # D1: Scrape High-Resolution Mars’ Hemisphere Images and Titles
 
-# ### Hemispheres
 
 # In[57]:
 
@@ -141,57 +140,43 @@ df.to_html()
 url = 'https://astrogeology.usgs.gov/search/results?q=hemisphere+enhanced&k1=target&v1=Mars'
 
 browser.visit(url)
-
-
 # In[58]:
-
-
-
 # # 2. Create a list to hold the images and titles.
 hemisphere_image_urls = []
-
-
 # HTML object
 html = browser.html
 # Parse HTML with Beautiful Soup
 soup = bs(html, 'html.parser')
-articles = soup.find_all('div', class_='item')
 
+# get all websites to visit
 url_list = []
-title_list = []
-
-title_list = soup.find_all('h3')
-
-url_list = []
-
 for url in soup.find_all('div', class_='description'):
     link = url.a['href']
     new_link = f'https://astrogeology.usgs.gov{link}'
-    # print(new_link)
     url_list.append(new_link)
 
 
 # In[59]:
 
-
+# 3. retrieve full resolution image URL and title for each image
 for i in url_list:
     hemispheres = {}
     browser.visit(i)
-
+    title = browser.find_by_tag('h2').first
     hemispheres['title'] = title.text
-    link = browser.links.find_by_text('Sample').first ## THIS ONE WORKS
+    link = browser.links.find_by_text('Sample').first
     img_url = link['href']
     hemispheres['link'] = img_url
     hemisphere_image_urls.append(hemispheres)
 
-print(hemisphere_image_urls)
+
 
 
 # In[61]:
 
 
 # 4. Print the list that holds the dictionary of each image url and title.
-hemisphere_image_urls
+print(hemisphere_image_urls)
 
 
 # In[15]:
