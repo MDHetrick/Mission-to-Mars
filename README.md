@@ -9,9 +9,9 @@ Several websites were utilized for obtaining Mars data:
 - https://astrogeology.usgs.gov/
 
 Files:
-- Web app file: 
-- Scraping file:
-- HTML index file: 
+- Web app file: [app.py](https://github.com/MDHetrick/Mission-to-Mars/blob/main/app.py)
+- Scraping file: [scraping.py](https://github.com/MDHetrick/Mission-to-Mars/blob/main/scraping.py)
+- HTML index file: [index_v3.html](https://github.com/MDHetrick/Mission-to-Mars/blob/main/templates/index_v3.html)
 
 
 ## HTML File Edits
