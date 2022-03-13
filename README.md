@@ -15,6 +15,13 @@ Code files:
 
 ### HTML File Edits
 Once the information in the web app was populated, the styling was modified. The final styled page is shown below.
+#### Styling with Additional Bootstrap 3 components
+Modifications to "Scrape New Data" button
+- Modified style from "primary" to "success"
+- Changed size from large to block-level
+Modification to Mars News block
+- The "Mars News" row was formatted as a basic panel with the title in a "heading" class, and the text in a "body" class.
+
 
 ![Image](https://github.com/MDHetrick/Mission-to-Mars/blob/main/resources/mars_full_page.png)
 
@@ -25,9 +32,4 @@ Additional column sizes were added to the mars facts section for mobile responsi
 
 *Note: the images are discontinuous due to the screen capture program. The real-time webpage displays correctly*
 
-#### Styling with Additional Bootstrap 3 components
-Modifications to "Scrape New Data" button
-- Modified style from "primary" to "success"
-- Changed size from large to block-level
-Modification to Mars News block
-- The "Mars News" row was formatted as a basic panel with the title in a "heading" class, and the text in a "body" class.
+
