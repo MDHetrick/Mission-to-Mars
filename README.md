@@ -1,29 +1,24 @@
 # Mission-to-Mars
+The purpose of this repository is to create a web app that will scrape several websites for information about Mars and present that information.
 
-Deliverable 1 Requirements
-You will earn a perfect score for Deliverable 1 by completing all requirements below:
-1. Code is written that retrieves the full-resolution image and title for each hemisphere image (10 pt)
-2. The full-resolution images of the hemispheres are added to the dictionary. (10 pt)
-3. The titles for the hemisphere images are added to the dictionary. (10 pt)
-4. The list contains the dictionary of the full-resolution image URL string and title for each hemisphere image. (10 pt)
+## Resources
+Several websites were utilized for obtaining Mars data:
+- https://redplanetscience.com/
+- https://spaceimages-mars.com/
+- https://galaxyfacts-mars.com/
+- https://astrogeology.usgs.gov/
 
-Deliverable 2 Requirements
-You will earn a perfect score for Deliverable 2 by completing all requirements below:
-1. The scraping.py file contains code that retrieves the full-resolution image URL and title for each hemisphere image (10 pt)
-2. The Mongo database is updated to contain the full-resolution image URL and title for each hemisphere image (10 pt)
-3. The index.html file contains code that will display the full-resolution image URL and title for each hemisphere image (10 pt)
-4. After the scraping has been completed, the web app contains all the information from this module and the full-resolution images and titles for the four hemisphere images (10 pt)
+## HTML File Edits
+Once the information in the web app was populated, the styling was modified
 
-
-
-### Mobile Responsivity
+### Mobile Responsiveness
 Additional column sizes were added to the mars facts section for mobile responsiveness.
 
 ![Image]full_site.png
 
 ![Image]mobile_site.png
 
-### Styling with Additional Bootstrap 3 components:
+### Styling with Additional Bootstrap 3 components
 #### Modifications to "Scrape New Data" button
 - Modified style from "primary" to "success"
 - Changed size from large to block-level
